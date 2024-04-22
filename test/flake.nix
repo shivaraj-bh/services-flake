@@ -30,6 +30,13 @@
                   inputs.services-flake.processComposeModules.default
                   mod
                 ];
+                httpServer = {
+                  # TODO: raise a bug in process-compose-flake. Despite enable being false by default
+                  # httpServer is enabled.
+                  enable = true;
+                  # Enable uds to avoid occupying port 8080 by pc
+                  uds = true;
+                };
               };
           in
           builtins.listToAttrs (builtins.map mkPackageFor [
