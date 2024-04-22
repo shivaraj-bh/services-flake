@@ -11,6 +11,11 @@
     };
     # CI will override `services-flake` to run checks on the latest source
     services-flake.url = "github:juspay/services-flake";
+    hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -19,8 +24,26 @@
         inputs.flake-root.flakeModule
         inputs.treefmt-nix.flakeModule
         inputs.pre-commit-hooks-nix.flakeModule
+        inputs.hercules-ci-effects.flakeModule
         ./nix/pre-commit.nix
       ];
+
+      hercules-ci.flake-update = {
+        enable = true;
+        autoMergeMethod = "merge";
+        baseMerge.enable = true;
+        createPullRequest = true;
+        flakes = {
+          "example/share-services/northwind".commitSummary = "chore(example/share-services/northwind): Update flake.lock";
+          "example/simple".commitSummary = "chore(example/simple): Update flake.lock";
+          "test".commitSummary = "chore(test): Update flake.lock";
+        };
+        when = {
+          hour = [ 0 1 ];
+        };
+      };
+      herculesCI.ciSystems = [ "x86_64-linux" ];
+
       perSystem = { pkgs, lib, config, ... }: {
         treefmt = {
           projectRoot = inputs.services-flake;
