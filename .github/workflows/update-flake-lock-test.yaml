@@ -2,7 +2,7 @@ name: update-flake-lock-test
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
-    - cron: '0 0 * * 0' # runs weekly on Sunday at 00:00
+    - cron: '0 * * * 0' # runs weekly on Sunday at 00:00
 
 jobs:
   example-lock:
@@ -13,11 +13,11 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: shivaraj-bh/update-flake-lock@multi-flake-dirs
         with:
-          commit-msg: "chore(test): Update flake.lock"
-          pr-title: "Update test/flake.lock"
+          commit-msg: "chore: Update test/flake.lock; Update example/{simple, share-services}/flake.lock"
+          pr-title: "Update test/flake.lock; Update example/{simple, share-services}/flake.lock"
           pr-labels: |
             automated
-          path-to-flake-dir: 'test'
-          branch: "update_flake_lock_test"
+          path-to-flake-dirs: ./test ./example/simple ./example/share-services/northwind
+          branch: "update_flake_lock_action"
