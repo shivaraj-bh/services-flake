@@ -19,5 +19,5 @@ jobs:
           pr-title: "Update test/flake.lock; Update example/{simple, share-services}/flake.lock"
           pr-labels: |
             automated
-          path-to-flake-dirs: ./test ./example/simple ./example/share-services
+          path-to-flake-dirs: ./test ./example/simple ./example/share-services/northwind
           branch: "update_flake_lock_action"
