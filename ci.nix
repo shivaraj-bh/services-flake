@@ -1,6 +1,6 @@
 let
-  flake = import ./dev;
+  flake = builtins.getFlake (toString ./dev);
 in
 {
-  inherit (flake) herculesCI;
+  inherit (flake.outputs) herculesCI;
 }
