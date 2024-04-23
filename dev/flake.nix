@@ -39,7 +39,7 @@
           "test".commitSummary = "chore(test): Update flake.lock";
         };
         when = {
-          hour = [ 0 1 ];
+          dayOfWeek = [ "Mon" ];
         };
       };
       herculesCI.ciSystems = [ "x86_64-linux" ];
