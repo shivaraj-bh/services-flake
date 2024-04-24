@@ -8,7 +8,7 @@
 
 ## Motivation
 
-With `services-flake`, we aim to solve the following problems:
+With `services-flake`, we aim to solve the following problemss:
 
 - Run external services like databases, Redis, etc. natively across platforms.
 - Enable users to configure multiple instances of these external services.
