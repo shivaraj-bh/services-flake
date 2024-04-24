@@ -21,7 +21,7 @@ See <https://community.flake.parts/services-flake/start>
 
 ## Services available
 
-List of supported services is available at https://community.flake.parts/services-flake/services
+List of supported services is available: https://community.flake.parts/services-flake/services
 
 ## Comparison with other tools
 
