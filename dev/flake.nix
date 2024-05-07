@@ -30,7 +30,7 @@
 
       hercules-ci.flake-update = {
         enable = true;
-        autoMergeMethod = "merge";
+        autoMergeMethod = "rebase";
         baseMerge.enable = true;
         createPullRequest = true;
         flakes = {
