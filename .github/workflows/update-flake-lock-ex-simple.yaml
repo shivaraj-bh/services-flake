@@ -21,3 +21,6 @@ jobs:
             automated
           path-to-flake-dir: 'example/simple'
           branch: "update_flake_lock_ex_simple"
+      - run: "gh pr merge --auto --merge ${{ steps.update.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
