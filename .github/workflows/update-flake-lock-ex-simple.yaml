@@ -8,6 +8,12 @@ jobs:
   example-lock:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate Github app token
+        uses: navikt/github-app-token-generator@v1
+        id: get-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Nix
@@ -22,6 +28,7 @@ jobs:
             automated
           path-to-flake-dir: 'example/simple'
           branch: "update_flake_lock_ex_simple"
+          token: ${{ steps.get-token.outputs.token }}
       - run: "gh pr merge --auto --merge ${{ steps.update.outputs.pull-request-number }}"
         env:
           GH_TOKEN: ${{ github.token }}
