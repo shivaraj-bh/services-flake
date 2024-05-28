@@ -16,12 +16,15 @@ jobs:
           private-key: ${{ secrets.NIXOS_ASIA_PRIVATE_KEY }}
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # this fetches all history so `git describe` can see tags
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
       - uses: cachix/cachix-action@v14
         with:
           name: services-flake
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - run: "git describe --tags --abbrev=0 HEAD^"
       - run: "nix develop ./dev -c just changelog"
       - name: Create PR
         id: create-pr
