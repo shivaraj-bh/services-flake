@@ -12,8 +12,17 @@
     imports = [
       inputs.process-compose-flake.flakeModule
     ];
-    perSystem = { self', pkgs, lib, ... }: {
+    perSystem = { self', pkgs, system, lib, ... }: {
       packages.default = self'.packages.services-flake-llm;
+
+      imports = [
+        "${inputs.nixpkgs}/nixos/modules/misc/nixpkgs.nix"
+      ];
+      nixpkgs = {
+        hostPlatform = system;
+        # Required for CUDA
+        config.allowUnfree = true;
+      };
 
       process-compose."services-flake-llm" = pc: {
         imports = [
@@ -23,6 +32,7 @@
           # Backend service to perform inference on LLM models
           ollama."ollama1" = {
             enable = true;
+            acceleration = "cuda";
 
             # The models are usually huge, downloading them in every project
             # directory can lead to a lot of duplication. Change here to a
