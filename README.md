@@ -1,7 +1,7 @@
 [![project chat](https://img.shields.io/badge/zulip-join_chat-brightgreen.svg)](https://nixos.zulipchat.com/#narrow/stream/414011-services-flake)
 
 # services-flake
-
+TEST
 `services-flake` provides declarative, composable, and reproducible services for Nix development environment, as a [process-compose-flake](https://github.com/Platonic-Systems/process-compose-flake) module (based on [flake-parts](https://flake.parts)). It enables users to have NixOS-like services on MacOS and Linux.
 
 ![Demo](./doc/demo.gif)
